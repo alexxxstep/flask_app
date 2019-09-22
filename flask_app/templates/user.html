@@ -1,8 +1,10 @@
 {% extends "base.html" %}
+
 {% block title %}Flasky - {{ user.username }}{% endblock %}
+
 {% block page_content %}
 <div class="page-header">
-    <img class="img-rounded profile-thumbnail" src="{{ user.gravatar(size=256) }}">
+    <img class="img-rounded profile-thumbnail" src="{{ user.gravatar(size=90) }}">
     <div class="profile-header">
 
         <h1>{{ user.username }}</h1>
@@ -32,4 +34,12 @@
         </p>
     </div>
 </div>
+
+<h3>Tasks by {{ user.username }}</h3>
+{% include '_tasks.html' %}
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.user', username=user.username) }}
+</div>
+{% endif %}
 {% endblock %}

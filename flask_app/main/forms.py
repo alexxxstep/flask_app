@@ -1,6 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField
+from wtforms import StringField, SubmitField, TextAreaField, SelectField
 from wtforms.validators import DataRequired, Length
+from flask_pagedown.fields import PageDownField
+from wtforms_sqlalchemy.fields import QuerySelectField
+from ..models import Status
 
 
 class NameForm(FlaskForm):
@@ -9,9 +12,16 @@ class NameForm(FlaskForm):
 
 
 class TaskForm(FlaskForm):
-    title = StringField("Title of task:", validators=[DataRequired()])
-    body = TextAreaField("Body of task:", validators=[DataRequired()])
-    submit = SubmitField('Create')
+    title = StringField("Title", validators=[DataRequired()])
+    body = TextAreaField("Body", validators=[DataRequired()])
+    # status = SelectField('New status', coerce=int)
+    submit = SubmitField('Submit')
+
+
+class TaskCommentForm(FlaskForm):
+    status = SelectField('New status', coerce=int)
+    body = TextAreaField("Comment")
+    submit = SubmitField('Save')
 
 
 class EditProfileForm(FlaskForm):
